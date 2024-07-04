@@ -1,0 +1,19 @@
+.link {
+    @apply inline-block text-teal-600 underline transition hover:text-teal-600/75
+}
+
+.wrapper {
+    @apply mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8
+}
+
+.row {
+    @apply text-center sm:flex sm:justify-between sm:text-left
+}
+
+.row_left {
+    @apply flex items-start justify-center text-teal-600 sm:justify-start
+}
+
+.row_right {
+    @apply text-sm text-gray-500
+}

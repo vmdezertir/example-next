@@ -1,0 +1,21 @@
+.item {
+    @apply px-4 py-3 sm:px-6 cursor-pointer border-b;
+
+    &:hover .item_row_icon {
+            @apply visible opacity-100;
+            transition: opacity .4s linear;
+        }
+}
+
+.item_row {
+    @apply flex items-center justify-between;
+}
+
+.item_row_icon {
+    @apply text-red-500 invisible opacity-0;
+    width: 25px;
+}
+
+.team_name {
+    @apply text-sm font-medium text-gray-500;
+}

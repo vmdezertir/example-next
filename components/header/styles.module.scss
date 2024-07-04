@@ -1,0 +1,15 @@
+.header {
+    @apply bg-gray-50 mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-8 lg:px-8
+}
+
+.row {
+    @apply sm:flex sm:items-center sm:justify-between
+}
+
+.row_left {
+    @apply text-center sm:text-left
+}
+
+.logo {
+    @apply flex justify-center text-teal-600 sm:justify-start
+}
