@@ -26,10 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn('min-h-screen bg-background font-sans antialiased', baseFont.variable)}>
-        <div className="flex h-screen flex-col justify-between">
+        <div className="flex h-screen flex-col">
           <Header />
           <Providers>
-            <main className="h-full">{children}</main>
+            <main className="grow">{children}</main>
           </Providers>
           <Footer />
         </div>

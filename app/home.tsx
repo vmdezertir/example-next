@@ -1,12 +1,13 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import dynamicIconImports from 'lucide-react/dynamicIconImports';
+import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 
-import { getDayFixtures } from '@/api/fixtures';
 import { DayFixtures } from '@/components/day-fixtures';
 import { Tabs } from '@/components/tabs';
+import { dayFixtureOptions } from '@/queryOptions/fixtures';
 import { EFixtureTabStatus } from '@/types';
 
 interface IHomePageProps {
@@ -14,12 +15,8 @@ interface IHomePageProps {
 }
 
 export const HomePage = ({ activeTab }: IHomePageProps) => {
-  const { data } = useQuery({
-    queryKey: ['day-fixtures'],
-    queryFn: () => getDayFixtures(),
-  });
-
-  // console.log('data', data);
+  const today = DateTime.utc().toFormat('yyyy-MM-dd');
+  const { data } = useSuspenseQuery(dayFixtureOptions(today));
 
   const tabsData = useMemo(
     () => [
@@ -36,7 +33,7 @@ export const HomePage = ({ activeTab }: IHomePageProps) => {
         <div className="h-full rounded-lg bg-gray-200"></div>
         <div className="h-full rounded-lg bg-gray-200 p-2">
           <Tabs tabName="status" tabs={tabsData} />
-          {tabsData.map(({ tab }) => (tab === activeTab ? <DayFixtures key={tab} status={tab} /> : null))}
+          <DayFixtures status={activeTab} fixtures={data[activeTab]} />
         </div>
       </div>
     </div>

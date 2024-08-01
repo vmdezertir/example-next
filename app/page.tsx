@@ -1,6 +1,7 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { DateTime } from 'luxon';
 
-import { getDayFixtures } from '@/api/fixtures';
+import { dayFixtureOptions } from '@/queryOptions/fixtures';
 import { EFixtureTabStatus } from '@/types';
 
 import { HomePage } from './home';
@@ -15,11 +16,9 @@ export default async function Home({ searchParams }: IHomePageProps) {
   const { status: activeTab = EFixtureTabStatus.ALL } = searchParams;
 
   const queryClient = new QueryClient();
+  const today = DateTime.utc().toFormat('yyyy-MM-dd');
 
-  await queryClient.prefetchQuery({
-    queryKey: ['day-fixtures'],
-    queryFn: getDayFixtures,
-  });
+  void (await queryClient.prefetchQuery(dayFixtureOptions(today)));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

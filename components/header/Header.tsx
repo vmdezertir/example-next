@@ -12,7 +12,7 @@ export const Header = () => {
           <div className={styles.row_left}>
             <div className={styles.logo}>
               <Link href="/">
-                <Image width={250} src={logotypeUrl} alt="company logo" />
+                <Image priority width={250} src={logotypeUrl} alt="company logo" />
               </Link>
             </div>
           </div>

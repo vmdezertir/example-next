@@ -8,7 +8,7 @@
 }
 
 .item_row {
-    @apply flex items-center justify-between;
+    @apply flex items-center;
 }
 
 .item_row_icon {
@@ -17,5 +17,5 @@
 }
 
 .team_name {
-    @apply text-sm font-medium text-gray-500;
+    @apply text-sm text-gray-500;
 }
