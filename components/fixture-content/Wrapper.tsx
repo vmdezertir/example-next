@@ -6,10 +6,10 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { fixtureOptions } from '@/queryOptions/fixtures';
 
-import { Lineups } from '../lineups';
 import { FixtureTabType } from './FixtureContent';
 import { FixtureEvents } from './FixtureEvents';
 import { FixtureInfo } from './FixtureInfo';
+import { FixtureLineups } from './FixtureLineups';
 import { FixtureStats } from './FixtureStats';
 
 interface IWrapperProps {
@@ -30,7 +30,7 @@ export const Wrapper = ({ tab }: IWrapperProps) => {
     case 'statistics':
       return <FixtureStats stats={statistics} />;
     case 'lineups':
-      return <Lineups lineups={lineups} />;
+      return <FixtureLineups lineups={lineups} events={events} />;
 
     default:
       return null;

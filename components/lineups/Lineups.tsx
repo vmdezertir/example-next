@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 
-import { IFixtureTeamLineup, ITeamPositionInfo } from '@/types';
+import { EFixtureEventType, IFixtureEvent, ITeamPositionInfo } from '@/types';
 
 import { Player } from './Player';
 
@@ -12,88 +12,82 @@ const DICTIONARY_WIDTHS = {
 };
 
 interface IFixtureLineupsProps {
-  lineups?: [IFixtureTeamLineup, IFixtureTeamLineup];
+  homeLineups: [ITeamPositionInfo][];
+  awayLineups: [ITeamPositionInfo][];
+  homeFormation?: string;
+  awayFormation?: string;
+  events?: IFixtureEvent[];
 }
 
-export const Lineups = ({ lineups }: IFixtureLineupsProps) => {
-  if (!lineups) {
-    return null;
-  }
+export const Lineups = ({
+  homeLineups,
+  awayLineups,
+  homeFormation,
+  awayFormation,
+  events = [],
+}: IFixtureLineupsProps) => {
+  const getPlayerEvents = useCallback(
+    (playerId: number) =>
+      Array.from(
+        events
+          .filter(({ player }) => player.id === playerId)
+          .reduce((acc, event) => {
+            const { type } = event;
 
-  const [homeTeam, awayTeam] = lineups;
+            switch (type) {
+              case EFixtureEventType.Goal: {
+                if (acc.has(type)) {
+                  const prevVal = acc.get(type);
+                  acc.set(type, { ...event, count: prevVal.count + 1 });
+                } else {
+                  acc.set(type, { ...event, count: 1 });
+                }
 
-  if (!homeTeam.startXI?.length || !awayTeam.startXI?.length) {
-    return null;
-  }
+                return acc;
+              }
 
-  const homeLineup = useMemo(() => {
-    const initialArr = new Array(homeTeam.formation.split('-').length + 1);
-
-    return homeTeam.startXI.reduce(
-      (acc, { player }) => {
-        const index = Number(player.grid?.split(':')[0]) - 1 || 0;
-
-        if (!acc[index]) {
-          // @ts-ignore
-          acc[index] = [];
-        }
-
-        acc[index].push(player);
-
-        return acc;
-      },
-      initialArr as [ITeamPositionInfo][],
-    );
-  }, [homeTeam.startXI, homeTeam.formation]);
-
-  const awayLineup = useMemo(() => {
-    const initialArr = new Array(awayTeam.formation.split('-').length + 1);
-
-    return awayTeam.startXI.reduce(
-      (acc, { player }) => {
-        const index = Number(player.grid?.split(':')[0]) - 1 || 0;
-
-        if (!acc[index]) {
-          // @ts-ignore
-          acc[index] = [];
-        }
-
-        acc[index].push(player);
-
-        return acc;
-      },
-      initialArr as [ITeamPositionInfo][],
-    );
-  }, [awayTeam.startXI, awayTeam.formation]);
+              default: {
+                acc.set(type, event);
+                return acc;
+              }
+            }
+          }, new Map())
+          .values(),
+      ),
+    [events],
+  );
 
   return (
     <div
       className={`relative ml-auto mr-auto flex h-[600px] w-[900px] flex-row bg-[url('/field.svg')] bg-contain bg-no-repeat`}
     >
-      <span className="absolute left-4 top-2 text-lg font-semibold text-white">{homeTeam.formation}</span>
-      <span className="absolute right-4 top-2 text-lg font-semibold text-white">{awayTeam.formation}</span>
+      {homeFormation && <span className="absolute left-4 top-2 text-lg font-semibold text-white">{homeFormation}</span>}
+      {awayFormation && (
+        <span className="absolute right-4 top-2 text-lg font-semibold text-white">{awayFormation}</span>
+      )}
+
       <div className="flex h-full w-1/2 flex-row">
-        {homeLineup.map((players, index) => (
+        {homeLineups.map((players, index) => (
           <div
             key={`home_row_${index}`}
             // @ts-ignore
-            className={`flex ${DICTIONARY_WIDTHS[homeLineup.length]} flex-col items-center justify-around`}
+            className={`flex ${DICTIONARY_WIDTHS[homeLineups.length]} flex-col items-center justify-around`}
           >
             {players.map(player => (
-              <Player key={player.id} info={player} />
+              <Player key={player.id} info={player} events={getPlayerEvents(player.id)} />
             ))}
           </div>
         ))}
       </div>
       <div className="flex h-full w-1/2 flex-row">
-        {awayLineup.reverse().map((players, index) => (
+        {awayLineups.map((players, index) => (
           <div
             key={`away_row_${index}`}
             // @ts-ignore
-            className={`flex ${DICTIONARY_WIDTHS[awayLineup.length]} flex-col items-center justify-around`}
+            className={`flex ${DICTIONARY_WIDTHS[awayLineups.length]} flex-col items-center justify-around`}
           >
             {players.map(player => (
-              <Player key={player.id} info={player} isAway />
+              <Player key={player.id} info={player} isAway events={getPlayerEvents(player.id)} />
             ))}
           </div>
         ))}

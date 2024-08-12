@@ -15,7 +15,7 @@ interface IFixtureEventsProps {
   homeTeamId: number;
 }
 
-const EventIcon = ({ type, detail }: { type: EFixtureEventType; detail: string }) => {
+export const EventIcon = ({ type, detail }: { type: EFixtureEventType; detail: string }) => {
   let iconPath = '';
   switch (type) {
     case EFixtureEventType.Goal: {
