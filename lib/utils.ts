@@ -9,6 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const groupGamesByLeague = (collection: IFootballFixtureResponse[]) => {
   const cMap = new Map<number, { games: Omit<IFootballFixtureResponse, 'league'>[]; league: ILeague }>();
+  const lMap = new Map<number, ILeague>();
 
   for (let i = 0; i < collection.length; i++) {
     const { league, ...c } = collection[i];
@@ -17,7 +18,13 @@ export const groupGamesByLeague = (collection: IFootballFixtureResponse[]) => {
     games.push(c);
 
     cMap.set(key, { games, league });
+    if (!lMap.has(key)) {
+      lMap.set(key, league);
+    }
   }
 
-  return cMap;
+  return {
+    groupedMap: cMap,
+    sortedList: [...lMap.values()].sort((lA, lB) => lA.country.localeCompare(lB.country)).map(l => l.id),
+  };
 };

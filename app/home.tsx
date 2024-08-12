@@ -33,7 +33,7 @@ export const HomePage = ({ activeTab }: IHomePageProps) => {
         <div className="h-full rounded-lg bg-gray-200"></div>
         <div className="h-full rounded-lg bg-gray-200 p-2">
           <Tabs tabName="status" tabs={tabsData} />
-          <DayFixtures status={activeTab} fixtures={data[activeTab]} />
+          <DayFixtures fixtures={data[activeTab]} sort={data.sortedList} />
         </div>
       </div>
     </div>

@@ -1,0 +1,15 @@
+.header {
+    @apply w-full border-2 border-gray-100 bg-white rounded-lg;
+}
+
+.badge {
+    @apply inline-flex h-[2rem] items-center justify-center rounded-full bg-red-100 px-2.5 py-0.5 font-bold text-orange-700;
+}
+
+.teamLogo {
+    @apply flex items-center justify-center;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 4px 4px 0 #30303026, 0 0 0 15px #f3f5f9;
+    border-radius: 50%;
+}

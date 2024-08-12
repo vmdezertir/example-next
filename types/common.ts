@@ -10,3 +10,8 @@ export interface BaseFootballApiResponse {
     total: number;
   };
 }
+
+export interface CommonIdName {
+  id: number | null;
+  name: string | null;
+}

@@ -1,4 +1,6 @@
-import { BaseFootballApiResponse } from './common';
+import { BaseFootballApiResponse, CommonIdName } from './common';
+import { ILeague } from './league';
+import { IShortInfoTeam, ITeams } from './team';
 
 export enum EFixtureStatus {
   // Scheduled
@@ -29,16 +31,6 @@ export enum EFixtureStatus {
   WO = 'WO',
 }
 
-export interface IShortInfoTeam {
-  id: number;
-  name: string;
-  logo: string;
-}
-
-export interface IFixtureTeam extends IShortInfoTeam {
-  winner: boolean;
-}
-
 export interface IFixtureStatus {
   long: string;
   short: EFixtureStatus;
@@ -67,66 +59,16 @@ export interface IFixture {
   venue?: IFixtureVenue;
 }
 
-export interface ILeague {
-  id: number;
-  name: string;
-  country: string;
-  logo: string;
-  flag: string;
-  season: number;
-  round: string;
-}
-
-interface ICountry {
+export interface ICountry {
   name: string;
   code: string;
   flag: string;
-}
-
-interface ITeamSeason {
-  year: number;
-  start: string;
-  end: string;
-  current: boolean;
-  coverage: object;
-}
-export interface ITeamLeagueResponse {
-  league: ILeague;
-  country: ICountry;
-  seasons: ITeamSeason[];
 }
 
 export interface ICareer {
   team: IShortInfoTeam;
   start: string;
   end: string | null;
-}
-export interface ITeamCoachResponse {
-  id: number;
-  name: string;
-  firstname: string;
-  lastname: string;
-  age: 47;
-  birth: {
-    date: string;
-    place: string;
-    country: string;
-  };
-  nationality: string;
-  height: string;
-  weight: string;
-  photo: string;
-  team: IShortInfoTeam;
-  career: ICareer[];
-}
-
-export interface IPLeague {
-  id: number;
-  season: number;
-  name: string;
-  country: string;
-  logo: string;
-  flag: string;
 }
 
 export interface ITeamsGoals {
@@ -141,11 +83,6 @@ export interface IScores {
   penalty: ITeamsGoals;
 }
 
-interface ITeams {
-  away: IFixtureTeam;
-  home: IFixtureTeam;
-}
-
 export interface IFootballFixtureResponse {
   fixture: IFixture;
   league: ILeague;
@@ -157,7 +94,80 @@ export interface IFootballFixtureApiResponse extends BaseFootballApiResponse {
   response: IFootballFixtureResponse[];
 }
 
-export type IFixtureApiResponse = Record<
-  number,
-  { games: Omit<IFootballFixtureResponse, 'league'>[]; league: ILeague }
->;
+export type IFixturesResponse = Record<number, { games: Omit<IFootballFixtureResponse, 'league'>[]; league: ILeague }>;
+
+export interface IFixtureApiResponse {
+  fixtures: IFixturesResponse;
+  sortedLeagueIds: number[];
+}
+
+export enum EFixtureEventType {
+  Goal = 'Goal',
+  Card = 'Card',
+  Subst = 'Subst',
+  subst = 'subst',
+  Var = 'Var',
+}
+export interface IFixtureEvent {
+  time: {
+    elapsed: number;
+    extra: number | null;
+  };
+  team: IShortInfoTeam;
+  player: CommonIdName;
+  assist: CommonIdName;
+  type: EFixtureEventType;
+  detail: string;
+  comments: string | null;
+}
+
+export interface IPlayer extends CommonIdName {
+  photo: string | null;
+}
+
+export interface ITeamColor {
+  border: string;
+  number: string;
+  primary: string;
+}
+export interface IFixtureLineupTeamWithColors extends IShortInfoTeam {
+  colors: {
+    goalkeeper: ITeamColor;
+    player: ITeamColor;
+  };
+}
+
+export interface ITeamPositionInfo {
+  id: number;
+  name: string;
+  number: number;
+  pos: string;
+  grid: string | null;
+}
+
+export interface IFixtureLineupTeamPlayer {
+  player: ITeamPositionInfo;
+}
+export interface IFixtureTeamLineup {
+  coach: IPlayer;
+  formation: string;
+  team: IFixtureLineupTeamWithColors;
+  startXI: IFixtureLineupTeamPlayer[];
+  substitutes: IFixtureLineupTeamPlayer[];
+}
+
+export interface IFixtureStat {
+  type: string;
+  value: number | string;
+}
+
+export interface IFixtureTeamStats {
+  statistics: IFixtureStat[];
+  team: IShortInfoTeam;
+}
+export interface IFootballFixtureByIdResponse extends IFootballFixtureResponse {
+  events?: IFixtureEvent[];
+  lineups?: [IFixtureTeamLineup, IFixtureTeamLineup];
+  players?: any;
+  statistics?: [IFixtureTeamStats, IFixtureTeamStats];
+}

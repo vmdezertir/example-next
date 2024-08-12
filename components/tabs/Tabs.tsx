@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { clsx } from 'clsx';
 
-import { LucideIcon } from '../lucide-icon';
+import { LucideIcon } from '../ui';
 import styles from './styles.module.scss';
 import type { TabsProps } from './types';
 

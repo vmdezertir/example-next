@@ -16,11 +16,12 @@ export async function GET(request: NextRequest) {
 
   try {
     // const data = await FootballApiService.get(redirectPathName, searchParams);
-    const grouped = groupGamesByLeague(data.response);
+    const { groupedMap, sortedList } = groupGamesByLeague(data.response);
 
-    console.log('grouped', grouped.keys());
-
-    return Response.json(Object.fromEntries(grouped));
+    return Response.json({
+      fixtures: Object.fromEntries(groupedMap),
+      sortedLeagueIds: sortedList,
+    });
   } catch (error: any) {
     console.error('FootballApiService error', error);
 

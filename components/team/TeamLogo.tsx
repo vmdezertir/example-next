@@ -1,7 +1,9 @@
-import fallBackUrl from '../assets/default-team.svg?url';
-import { ClientImage } from '../image-with-fallback';
+import { ImageProps } from 'next/image';
 
-interface ITeamLogoProps {
+import fallBackUrl from '../assets/default-team.svg?url';
+import { ClientImage } from '../ui';
+
+interface ITeamLogoProps extends Omit<ImageProps, 'src' | 'alt'> {
   logo: string;
   name: string;
   size?: number;

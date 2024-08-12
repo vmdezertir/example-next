@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 
 import { IFootballFixtureResponse } from '@/types';
 
-import { LucideIcon } from '../lucide-icon';
+import { LucideIcon } from '../ui';
 import { ScoreInfo } from './Score';
 import { StatusInfo } from './Status';
 import { TeamInfo } from './Team';

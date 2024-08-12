@@ -65,6 +65,7 @@ class FootballApi {
     let resp;
     try {
       console.log('-------------- call request -----------');
+      console.log('req', req);
       resp = await this.api(req);
     } catch (err) {
       const e = err as AxiosError;
@@ -99,7 +100,7 @@ class FootballApi {
   }
 
   protected onError(code: number, message: string) {
-    console.error('Api error happened', message);
+    console.error('Api error happened:', message);
     throw new ApiError(code, message);
   }
 }
