@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon';
+import { CgMediaLive } from 'react-icons/cg';
 
 import { IFixture, ILeague, ITeams, ITeamsGoals } from '@/types';
 
-import { ClientImage, LucideIcon } from '../ui';
+import { ClientImage } from '../ui';
 import { TeamInfo } from './TeamInfo';
 import styles from './styles.module.scss';
 
@@ -19,7 +20,7 @@ export const FixtureHeader = ({ goals, fixture, teams, league }: IFixtureHeaderP
     <div className={styles.header}>
       <div className="flex items-center border-b-2 border-slate-300 p-4">
         <span className={styles.badge}>
-          <LucideIcon name="dot" />
+          <CgMediaLive className="mr-2" />
           <p className="whitespace-nowrap text-sm">Live</p>
         </span>
         <div className="flex flex-grow items-center justify-center">

@@ -10,6 +10,7 @@ import { FixtureTabType } from './FixtureContent';
 import { FixtureEvents } from './FixtureEvents';
 import { FixtureInfo } from './FixtureInfo';
 import { FixtureLineups } from './FixtureLineups';
+import { FixturePlayers } from './FixturePlayers';
 import { FixtureStats } from './FixtureStats';
 
 interface IWrapperProps {
@@ -20,7 +21,7 @@ export const Wrapper = ({ tab }: IWrapperProps) => {
   const { slug } = useParams();
 
   const { data } = useSuspenseQuery(fixtureOptions(Number(slug)));
-  const { fixture, events, teams, statistics, lineups } = data;
+  const { fixture, events, teams, statistics, lineups, players } = data;
 
   switch (tab) {
     case 'info':
@@ -31,6 +32,8 @@ export const Wrapper = ({ tab }: IWrapperProps) => {
       return <FixtureStats stats={statistics} />;
     case 'lineups':
       return <FixtureLineups lineups={lineups} events={events} />;
+    case 'players':
+      return <FixturePlayers players={players} />;
 
     default:
       return null;

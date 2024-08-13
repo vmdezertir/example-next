@@ -2,10 +2,10 @@ import Link from 'next/link';
 
 import { clsx } from 'clsx';
 import { useMemo } from 'react';
+import { MdKeyboardArrowRight } from 'react-icons/md';
 
 import { IFootballFixtureResponse } from '@/types';
 
-import { LucideIcon } from '../ui';
 import { ScoreInfo } from './Score';
 import { StatusInfo } from './Status';
 import { TeamInfo } from './Team';
@@ -44,7 +44,7 @@ export const FixtureItem = ({ data }: IFixtureItemProps) => {
             </div>
           </div>
           <div className={clsx(styles.item_row_icon, 'w-5')}>
-            <LucideIcon name="circle-arrow-right" />
+            <MdKeyboardArrowRight size={30} />
           </div>
         </div>
       </li>

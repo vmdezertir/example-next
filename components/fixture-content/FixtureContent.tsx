@@ -5,10 +5,10 @@ import { Tabs } from '../ui';
 import { Wrapper } from './Wrapper';
 import styles from './styles.module.scss';
 
-export type FixtureTabType = 'info' | 'events' | 'statistics' | 'lineups';
+export type FixtureTabType = 'info' | 'events' | 'statistics' | 'lineups' | 'players';
 
 export const FixtureContent = () => {
-  const tabs: FixtureTabType[] = useMemo(() => ['info', 'events', 'statistics', 'lineups'], []);
+  const tabs: FixtureTabType[] = useMemo(() => ['info', 'events', 'statistics', 'lineups', 'players'], []);
   return (
     <div className={styles.header}>
       <Tabs defaultValue="info" className="w-full">
@@ -20,7 +20,7 @@ export const FixtureContent = () => {
           ))}
         </TabsList>
         {tabs.map(tab => (
-          <TabsContent key={tab} value={tab} className="w-full">
+          <TabsContent key={tab} value={tab} className="w-full py-2">
             <Wrapper tab={tab} />
           </TabsContent>
         ))}

@@ -49,3 +49,7 @@ export interface ITeams {
   away: IFixtureTeam;
   home: IFixtureTeam;
 }
+
+export interface IShortInfoTeamWithUpdate extends IShortInfoTeam {
+  update: string;
+}

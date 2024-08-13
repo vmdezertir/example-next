@@ -1,6 +1,6 @@
 import { BaseFootballApiResponse, CommonIdName } from './common';
 import { ILeague } from './league';
-import { IShortInfoTeam, ITeams } from './team';
+import { IShortInfoTeam, IShortInfoTeamWithUpdate, ITeams } from './team';
 
 export enum EFixtureStatus {
   // Scheduled
@@ -165,9 +165,53 @@ export interface IFixtureTeamStats {
   statistics: IFixtureStat[];
   team: IShortInfoTeam;
 }
+
+export interface IPlayerGameStat {
+  cards: {
+    red: number;
+    yellow: number;
+  };
+  dribbles: {
+    attempts: number | null;
+    past: number | null;
+    success: number | null;
+  };
+  duels: { total: number | null; won: number | null };
+  fouls: { drawn: number | null; committed: number | null };
+  games: {
+    minutes: number | null;
+    number: number | null;
+    position: string | null;
+    rating: string | null;
+    captain: boolean | null;
+    substitute: boolean | null;
+  };
+  goals: { total: number | null; conceded: number | null; assists: number | null; saves: number | null };
+  offsides: number | null;
+  passes: { total: number | null; key: number | null; accuracy: string | null };
+  penalty: {
+    won: number | null;
+    commited: number | null;
+    scored: number | null;
+    missed: number | null;
+    saved: number | null;
+  };
+  shots: { total: number | null; on: number | null };
+  tackles: { total: number | null; blocks: number | null; interceptions: number | null };
+}
+
+export interface IFixtureTeamPlayerStat {
+  player: IPlayer;
+  statistics: IPlayerGameStat[];
+}
+
+export interface IFixtureTeamPlayersStat {
+  players: IFixtureTeamPlayerStat[];
+  team: IShortInfoTeamWithUpdate;
+}
 export interface IFootballFixtureByIdResponse extends IFootballFixtureResponse {
   events?: IFixtureEvent[];
   lineups?: [IFixtureTeamLineup, IFixtureTeamLineup];
-  players?: any;
+  players?: [IFixtureTeamPlayersStat, IFixtureTeamPlayersStat];
   statistics?: [IFixtureTeamStats, IFixtureTeamStats];
 }

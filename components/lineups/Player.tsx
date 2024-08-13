@@ -66,9 +66,8 @@ export const Player = ({ info, isAway = false, events = [] }: IPlayerProps) => {
             {events.map(({ type, detail, player, count }) => {
               const props = getIconProps(type, detail);
               return (
-                <>
+                <div key={`${type}_${detail}_${player.id}`}>
                   <ClientImage
-                    key={`${type}_${detail}_${player.id}`}
                     className={clsx('absolute', props.className)}
                     src={props.icon}
                     size={22}
@@ -78,7 +77,7 @@ export const Player = ({ info, isAway = false, events = [] }: IPlayerProps) => {
                   {type === EFixtureEventType.Goal && count && count > 1 && (
                     <span className="absolute -right-12 -top-3 font-semibold text-white">{`x ${count}`}</span>
                   )}
-                </>
+                </div>
               );
             })}
           </div>

@@ -5,3 +5,4 @@ export * from './Tabs';
 export * from './circle-number';
 export * from './HoverCard';
 export * from './Hover';
+export * from './Avatar';
