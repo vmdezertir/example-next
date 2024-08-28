@@ -7,13 +7,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const groupGamesByLeague = (collection: IFootballFixtureResponse[]) => {
-  const cMap = new Map<number, { games: Omit<IFootballFixtureResponse, 'league'>[]; league: ILeague }>();
-  const lMap = new Map<number, ILeague>();
+export type TFixturesGroupBy = 'league' | 'round';
+
+export const groupGames = (collection: IFootballFixtureResponse[], groupBy: TFixturesGroupBy = 'league') => {
+  const isByRound = groupBy === 'round';
+  const cMap = new Map<number | string, { games: Omit<IFootballFixtureResponse, 'league'>[]; league: ILeague }>();
+  const lMap = new Map<number | string, ILeague>();
 
   for (let i = 0; i < collection.length; i++) {
     const { league, ...c } = collection[i];
-    const key = league.id;
+    const key = isByRound ? league.round : league.id;
+    if (!key) {
+      continue;
+    }
+
     const games = cMap.get(key)?.games || [];
     games.push(c);
 
@@ -23,8 +30,12 @@ export const groupGamesByLeague = (collection: IFootballFixtureResponse[]) => {
     }
   }
 
+  const sortedList = isByRound
+    ? [...lMap.values()].sort().map(l => l.round)
+    : [...lMap.values()].sort((lA, lB) => lA.country.localeCompare(lB.country)).map(l => l.id);
+
   return {
     groupedMap: cMap,
-    sortedList: [...lMap.values()].sort((lA, lB) => lA.country.localeCompare(lB.country)).map(l => l.id),
+    sortedList,
   };
 };

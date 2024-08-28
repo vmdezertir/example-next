@@ -1,0 +1,14 @@
+.wrapper {
+    @apply fixed bottom-4 right-4 cursor-pointer flex justify-center items-center;
+    transition: 'visibility .3s linear, opacity .3s linear';
+    userSelect: 'none';
+    &:hover {
+        span {
+            @apply text-orange-500
+        }
+    }
+}
+
+.icon {
+    @apply z-10 absolute text-lime-800;
+}

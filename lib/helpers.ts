@@ -13,3 +13,6 @@ export const isFixtureLive = (status: EFixtureStatus) =>
     EFixtureStatus.INT,
     EFixtureStatus.P,
   ].includes(status);
+
+export const isFinished = (status: EFixtureStatus) =>
+  ['FT', 'AET', 'PEN', 'PST', 'CANC', 'ABD', 'AWD', 'WO'].includes(status);

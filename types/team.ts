@@ -1,10 +1,9 @@
 import { ILeague } from '@/types/league';
 
+import { CommonIdName } from './common';
 import { ICareer, ICountry } from './fixture';
 
-export interface IShortInfoTeam {
-  id: number;
-  name: string;
+export interface IShortInfoTeam extends CommonIdName {
   logo: string;
 }
 
@@ -52,4 +51,23 @@ export interface ITeams {
 
 export interface IShortInfoTeamWithUpdate extends IShortInfoTeam {
   update: string;
+}
+
+export interface IFullInfoTeam extends IShortInfoTeam {
+  code: string;
+  country: string;
+  founded: number;
+  national: boolean;
+}
+
+export interface IVenue extends CommonIdName {
+  address: string;
+  city: string;
+  capacity: number;
+  surface: string;
+  image: string;
+}
+export interface IFootballTeamResponse {
+  team: IFullInfoTeam;
+  venue: IVenue;
 }

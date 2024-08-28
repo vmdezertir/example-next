@@ -1,9 +1,10 @@
-import dynamicIconImports from 'lucide-react/dynamicIconImports';
+import React from 'react';
+import { IconType } from 'react-icons/lib';
 
 export type TabProp = {
   tab: string;
   title: string;
-  iconName?: keyof typeof dynamicIconImports;
+  IconComp?: IconType;
   className?: string;
 };
 

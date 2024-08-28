@@ -2,9 +2,12 @@ import { ApiError } from 'next/dist/server/api-utils';
 import type { NextRequest } from 'next/server';
 
 import { FootballApiService } from '@/lib/request';
-import { groupGamesByLeague } from '@/lib/utils';
+import { TFixturesGroupBy, groupGames } from '@/lib/utils';
 
-const data = require('./data.json');
+const { USE_FAKE_DATA } = process.env;
+
+const fixtures = require('./fixtures.json');
+const lFixtures = require('./league-fixtures.json');
 
 export async function GET(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
@@ -14,9 +17,18 @@ export async function GET(request: NextRequest) {
     return Response.json({ error: 'Route not found' }, { status: 404 });
   }
 
+  const isLeague = searchParams.get('league');
+  const groupBy: TFixturesGroupBy = (searchParams.get('groupBy') as TFixturesGroupBy) || 'league';
+
   try {
-    // const data = await FootballApiService.get(redirectPathName, searchParams);
-    const { groupedMap, sortedList } = groupGamesByLeague(data.response);
+    let restData;
+
+    if (USE_FAKE_DATA) {
+      restData = isLeague ? lFixtures : fixtures;
+    } else {
+      restData = await FootballApiService.get(redirectPathName, searchParams);
+    }
+    const { groupedMap, sortedList } = groupGames(restData.response, groupBy);
 
     return Response.json({
       fixtures: Object.fromEntries(groupedMap),

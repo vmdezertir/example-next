@@ -1,33 +1,11 @@
 import { FcRating } from 'react-icons/fc';
 import { GiCaptainHatProfile } from 'react-icons/gi';
 
+import { StatsChar } from '@/components/stats-char';
 import { timeAgo } from '@/lib/timeAgo';
 import { IFixtureTeamPlayersStat } from '@/types';
 
-import { Avatar, AvatarFallback, AvatarImage, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui';
-
-const StatChart = ({
-  chart,
-  explanation,
-  children,
-}: {
-  chart?: string;
-  explanation: string;
-  children?: React.ReactElement;
-}) => {
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger className="flex w-full items-center justify-center">
-          <div>{chart || children || '-'}</div>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{explanation}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-};
+import { Avatar, AvatarFallback, AvatarImage } from '../ui';
 
 interface IPlayerStatsProps extends IFixtureTeamPlayersStat {}
 
@@ -52,18 +30,18 @@ export const PlayerStats = ({ players, team }: IPlayerStatsProps) => {
                 <div className="flex w-3/5"></div>
               </div>
               <div className="flex w-8/12 justify-evenly">
-                <StatChart chart="M" explanation="Minutes played" />
-                <StatChart chart="G(P)" explanation="Goals Scored (from penalty)" />
-                <StatChart chart="A" explanation="Assists" />
-                <StatChart chart="SAV" explanation="Saves (penalty saves)" />
-                <StatChart chart="P" explanation="Passes (accuracy)" />
-                <StatChart chart="D" explanation="Duels (won)" />
-                <StatChart chart="DR" explanation="Dribbles (success)" />
-                <StatChart chart="YC" explanation="Yellow cards" />
-                <StatChart chart="RC" explanation="Red card" />
-                <StatChart chart="" explanation="Player rating">
+                <StatsChar chart="M" explanation="Minutes played" />
+                <StatsChar chart="G(P)" explanation="Goals Scored (from penalty)" />
+                <StatsChar chart="A" explanation="Assists" />
+                <StatsChar chart="SAV" explanation="Saves (penalty saves)" />
+                <StatsChar chart="P" explanation="Passes (accuracy)" />
+                <StatsChar chart="D" explanation="Duels (won)" />
+                <StatsChar chart="DR" explanation="Dribbles (success)" />
+                <StatsChar chart="YC" explanation="Yellow cards" />
+                <StatsChar chart="RC" explanation="Red card" />
+                <StatsChar chart="" explanation="Player rating">
                   <FcRating />
-                </StatChart>
+                </StatsChar>
               </div>
             </div>
             {players.map(({ player, statistics }, index) => {

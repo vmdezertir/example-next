@@ -1,0 +1,7 @@
+.wrapper {
+    @apply block fixed bottom-24 right-6 cursor-pointer flex justify-center items-center rounded-full text-green-300;
+    border: 3px solid white;
+    background: #355944;
+    box-shadow: 0 0 0 3px #355944;
+    font-size: 1.5em;
+}

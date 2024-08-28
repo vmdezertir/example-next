@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { IFixturesResponse } from '@/types';
 
 import { FixtureItem } from '../fixture-item';
@@ -19,10 +21,13 @@ export const DayFixtures = ({ sort, fixtures }: IDayFixturesProps) => {
 
         return (
           <li key={leagueId} className="px-4 py-3 sm:px-6">
-            <p className="flex items-center border-b pb-2 text-gray-600">
+            <Link
+              href={`/league/${leagueId}`}
+              className="flex items-center border-b pb-2 text-gray-600 hover:text-green-700"
+            >
               {league.flag && <img className="mr-2 h-5" src={league.flag} />}
               {league.country}. {league.name}
-            </p>
+            </Link>
             <ul>
               {games.map(game => (
                 <FixtureItem key={game.fixture.id} data={game} />

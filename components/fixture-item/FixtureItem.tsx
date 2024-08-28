@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { clsx } from 'clsx';
 import { useMemo } from 'react';
-import { MdKeyboardArrowRight } from 'react-icons/md';
+import { IoIosArrowDropright } from 'react-icons/io';
 
 import { IFootballFixtureResponse } from '@/types';
 
@@ -44,7 +44,7 @@ export const FixtureItem = ({ data }: IFixtureItemProps) => {
             </div>
           </div>
           <div className={clsx(styles.item_row_icon, 'w-5')}>
-            <MdKeyboardArrowRight size={30} />
+            <IoIosArrowDropright size={30} />
           </div>
         </div>
       </li>

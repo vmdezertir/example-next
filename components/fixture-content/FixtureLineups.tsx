@@ -13,15 +13,15 @@ import { EventIcon } from './FixtureEvents';
 
 interface IFixtureLineupsProps {
   lineups?: [IFixtureTeamLineup, IFixtureTeamLineup];
-  events: IFixtureEvent[];
+  events?: IFixtureEvent[];
 }
 
 const SubstitutesList = ({
-  events,
+  events = [],
   substitutes,
 }: {
   substitutes: IFixtureLineupTeamPlayer[];
-  events: IFixtureEvent[];
+  events?: IFixtureEvent[];
 }) => {
   const getPlayerEvents = useCallback(
     (playerId: number) =>

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { DateTime } from 'luxon';
 import { CgMediaLive } from 'react-icons/cg';
 
@@ -23,12 +25,13 @@ export const FixtureHeader = ({ goals, fixture, teams, league }: IFixtureHeaderP
           <CgMediaLive className="mr-2" />
           <p className="whitespace-nowrap text-sm">Live</p>
         </span>
-        <div className="flex flex-grow items-center justify-center">
+        <Link
+          href={`/league/${league.id}`}
+          className="flex flex-grow items-center justify-center text-gray-600 hover:text-green-700"
+        >
           <ClientImage src={league.logo} fallbackSrc={''} size={60} alt={`${league.name} logotype`} />
-          <h3 className="text-lg font-bold text-gray-600">
-            {`${league.name} ${league.round ? `(${league.round})` : ''}`}
-          </h3>
-        </div>
+          <h3 className="text-lg font-bold">{`${league.name} ${league.round ? `(${league.round})` : ''}`}</h3>
+        </Link>
       </div>
       <div className="relative flex columns-3 p-4">
         <div className="flex w-full items-center justify-center">
@@ -40,9 +43,9 @@ export const FixtureHeader = ({ goals, fixture, teams, league }: IFixtureHeaderP
               {luxonDate.toFormat('DD')} at <strong className="text-gray-600">{luxonDate.toFormat('T')}</strong>
             </div>
             <div className="mt-3 flex items-center text-5xl">
-              <span className="font-semibold">{goals.home || '-'}</span>
+              <span className="font-semibold">{goals.home || 0}</span>
               <span className="px-2.5 text-3xl font-bold text-gray-300">:</span>
-              <span className="font-semibold">{goals.away || '-'}</span>
+              <span className="font-semibold">{goals.away || 0}</span>
             </div>
             <div className="mt-2 text-sm font-semibold text-amber-600">{fixture.status.long}</div>
           </div>

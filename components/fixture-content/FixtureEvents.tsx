@@ -11,7 +11,7 @@ import { CircleNumber, ClientImage } from '../ui';
 import styles from './event.styles.module.scss';
 
 interface IFixtureEventsProps {
-  events: IFixtureEvent[];
+  events?: IFixtureEvent[];
   homeTeamId: number;
 }
 
@@ -59,15 +59,15 @@ const EventTitle = ({ event }: { event: IFixtureEvent }) => {
     }
 
     case EFixtureEventType.Card: {
-      <p>{event.player.name}</p>;
+      return <p>{event.player.name}</p>;
     }
 
     case EFixtureEventType.subst:
     case EFixtureEventType.Subst: {
       return (
         <p>
-          {`${event.player.name}`}
-          {!!event.assist.name && <span className="text-gray-500">{` ( Out: ${event.assist.name} )`}</span>}
+          {`${event.assist.name}`}
+          {!!event.player.name && <span className="text-gray-500">{` ( Out: ${event.player.name} )`}</span>}
         </p>
       );
     }

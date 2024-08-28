@@ -1,0 +1,7 @@
+.header {
+    @apply w-full border-2 border-gray-100 bg-white rounded-lg p-2;
+}
+
+.row {
+    @apply mr-3 mt-3 flex items-center text-sm text-gray-400 border border-gray-400 rounded-lg px-2 py-1;
+}

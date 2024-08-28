@@ -1,14 +1,12 @@
-import { useMemo } from 'react';
-
 import { TabsContent, TabsList, TabsTrigger } from '../ui';
 import { Tabs } from '../ui';
 import { Wrapper } from './Wrapper';
 import styles from './styles.module.scss';
 
-export type FixtureTabType = 'info' | 'events' | 'statistics' | 'lineups' | 'players';
+const tabs = ['info', 'events', 'statistics', 'lineups', 'players'] as const;
+export type FixtureTabType = (typeof tabs)[number];
 
 export const FixtureContent = () => {
-  const tabs: FixtureTabType[] = useMemo(() => ['info', 'events', 'statistics', 'lineups', 'players'], []);
   return (
     <div className={styles.header}>
       <Tabs defaultValue="info" className="w-full">

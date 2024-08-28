@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
+import { UpButton } from '@/components/up-button';
 import { cn } from '@/lib/utils';
 
 import './globals.css';
@@ -32,6 +33,7 @@ export default function RootLayout({
             <main className="grow">{children}</main>
           </Providers>
           <Footer />
+          <UpButton className="fixed bottom-3 right-3" />
         </div>
       </body>
     </html>

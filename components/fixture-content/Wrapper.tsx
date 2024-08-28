@@ -25,7 +25,7 @@ export const Wrapper = ({ tab }: IWrapperProps) => {
 
   switch (tab) {
     case 'info':
-      return <FixtureInfo fixture={fixture} />;
+      return <FixtureInfo fixture={fixture} teams={teams} />;
     case 'events':
       return <FixtureEvents events={events} homeTeamId={teams.home.id} />;
     case 'statistics':

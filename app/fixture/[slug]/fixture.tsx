@@ -13,8 +13,6 @@ interface IFixturePageProps {
 export const FixturePage = ({ id }: IFixturePageProps) => {
   const { data } = useSuspenseQuery(fixtureOptions(id));
 
-  console.log('data', data);
-
   return (
     <div className="mx-auto h-full max-w-screen-xl px-4 py-3">
       <div className="h-full rounded-lg bg-gray-200 p-4">

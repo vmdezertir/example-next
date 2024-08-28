@@ -42,10 +42,8 @@ export interface IFixturePeriods {
   second?: number | null;
 }
 
-export interface IFixtureVenue {
-  id: number;
+export interface IFixtureVenue extends CommonIdName {
   city: string;
-  name: string;
 }
 
 export interface IFixture {
@@ -137,9 +135,7 @@ export interface IFixtureLineupTeamWithColors extends IShortInfoTeam {
   };
 }
 
-export interface ITeamPositionInfo {
-  id: number;
-  name: string;
+export interface ITeamPositionInfo extends CommonIdName {
   number: number;
   pos: string;
   grid: string | null;
