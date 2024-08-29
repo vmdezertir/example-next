@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 
+import { isFixtureLive } from '@/lib/helpers';
 import { EFixtureEventType, IFixtureEvent } from '@/types';
 
 import ballIconPath from '../assets/ball.svg?url';
@@ -12,7 +13,8 @@ import styles from './event.styles.module.scss';
 
 interface IFixtureEventsProps {
   events?: IFixtureEvent[];
-  homeTeamId: number;
+  homeTeamId: number | null;
+  isLive?: boolean;
 }
 
 export const EventIcon = ({ type, detail }: { type: EFixtureEventType; detail: string }) => {
@@ -81,8 +83,14 @@ const EventTitle = ({ event }: { event: IFixtureEvent }) => {
   }
 };
 
-export const FixtureEvents = ({ events, homeTeamId }: IFixtureEventsProps) => {
-  return events.map((event, indx) => {
+export const FixtureEvents = ({ events, homeTeamId, isLive = false }: IFixtureEventsProps) => {
+  if (!events) {
+    return null;
+  }
+
+  const list = isLive ? events?.reverse() : events;
+
+  return list.map((event, indx) => {
     const isHome = event.team.id === homeTeamId;
 
     return (

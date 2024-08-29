@@ -10,10 +10,14 @@ import {
   IFootballFixtureResponse,
 } from '@/types';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 const getDayFixtures = async ({ queryKey }: QueryFunctionContext) => {
   const [_, date] = queryKey;
 
-  const { data }: AxiosResponse<IFixtureApiResponse> = await axios.get(`/api/fixtures?date=${date}&groupBy=league`);
+  const { data }: AxiosResponse<IFixtureApiResponse> = await axios.get(
+    `${API_BASE_URL}/api/fixtures?date=${date}&groupBy=league`,
+  );
 
   const result: {
     all: IFixturesResponse;
@@ -102,7 +106,9 @@ export const dayFixtureOptions = (date: string) =>
 const getFixture = async ({ queryKey }: QueryFunctionContext) => {
   const [_, id] = queryKey;
 
-  const { data }: AxiosResponse<IFootballFixtureByIdResponse[]> = await axios.get(`/api/proxy/fixtures?id=${id}`);
+  const { data }: AxiosResponse<IFootballFixtureByIdResponse[]> = await axios.get(
+    `${API_BASE_URL}/api/proxy/fixtures?id=${id}`,
+  );
 
   return data[0];
 };
@@ -117,7 +123,7 @@ const getFixtureH2h = async ({ queryKey }: QueryFunctionContext) => {
   const [_, h2h] = queryKey;
 
   const { data }: AxiosResponse<IFootballFixtureResponse[]> = await axios.get(
-    `/api/proxy/fixtures/headtohead?h2h=${h2h}&last=10&status='FT-AET-PEN'`,
+    `${API_BASE_URL}/api/proxy/fixtures/headtohead?h2h=${h2h}&last=10&status='FT-AET-PEN'`,
   );
 
   return data;
@@ -133,7 +139,7 @@ const getLeagueFixtures = async ({ queryKey }: QueryFunctionContext) => {
   const [_, id, season] = queryKey;
 
   const { data }: AxiosResponse<IFixtureApiResponse> = await axios.get(
-    `/api/fixtures?league=${id}&season=${season}&groupBy=round`,
+    `${API_BASE_URL}/api/fixtures?league=${id}&season=${season}&groupBy=round`,
   );
 
   const result: {

@@ -1,17 +1,19 @@
 'use client';
 
+import Head from 'next/head';
 import Link from 'next/link';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { DateTime } from 'luxon';
+import { Suspense } from 'react';
 import { useMemo } from 'react';
 import { CgMediaLive } from 'react-icons/cg';
 
 import { DayFixtures } from '@/components/day-fixtures';
+import { ErrorBoundary } from '@/components/error';
 import { RefreshButton } from '@/components/refresh-button';
 import { Tabs } from '@/components/tabs';
 import { ClientImage } from '@/components/ui';
-import { UpButton } from '@/components/up-button';
 import { dayFixtureOptions } from '@/queryOptions/fixtures';
 import { EFixtureTabStatus } from '@/types';
 
@@ -59,7 +61,20 @@ export const HomePage = ({ activeTab }: IHomePageProps) => {
     [],
   );
   return (
-    <>
+    <ErrorBoundary>
+      <Head>
+        <title>Football Matches Today - Live Scores, Results & Fixtures</title>
+        <meta
+          name="description"
+          content="Stay updated with today's football matches, including live scores, results, and upcoming games. Browse matches by tournaments and explore detailed game pages."
+        />
+        <meta
+          name="keywords"
+          content="football matches, live scores, football results, tournament fixtures, football today, soccer scores"
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://football-hub.com.ua" />
+      </Head>
       <div className="mx-auto h-full max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div className="grid h-full grid-cols-1 gap-4 overflow-x-hidden transition-[grid-template-columns] lg:grid-cols-[85px_1fr] lg:gap-8 lg:[&:has(>*:first-child:hover)]:grid-cols-[300px_1fr]">
           <div className="flex h-full flex-col whitespace-nowrap rounded-lg bg-gray-200 px-2 pt-10">
@@ -81,12 +96,14 @@ export const HomePage = ({ activeTab }: IHomePageProps) => {
             ))}
           </div>
           <div className="h-full rounded-lg bg-gray-200 p-2">
-            <Tabs tabName="status" tabs={tabsData} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Tabs tabName="status" tabs={tabsData} />
+            </Suspense>
             <DayFixtures fixtures={data[activeTab]} sort={data.sortedList} />
           </div>
         </div>
       </div>
       <RefreshButton />
-    </>
+    </ErrorBoundary>
   );
 };

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { DateTime } from 'luxon';
 import { CgMediaLive } from 'react-icons/cg';
 
+import { isFixtureLive } from '@/lib/helpers';
 import { IFixture, ILeague, ITeams, ITeamsGoals } from '@/types';
 
 import { ClientImage } from '../ui';
@@ -18,13 +19,16 @@ interface IFixtureHeaderProps {
 
 export const FixtureHeader = ({ goals, fixture, teams, league }: IFixtureHeaderProps) => {
   const luxonDate = DateTime.fromISO(fixture.date).setLocale('en');
+
   return (
     <div className={styles.header}>
       <div className="flex items-center border-b-2 border-slate-300 p-4">
-        <span className={styles.badge}>
-          <CgMediaLive className="mr-2" />
-          <p className="whitespace-nowrap text-sm">Live</p>
-        </span>
+        {isFixtureLive(fixture.status.short) && (
+          <span className={styles.badge}>
+            <CgMediaLive className="mr-2" />
+            <p className="whitespace-nowrap text-sm">{fixture.status.short}</p>
+          </span>
+        )}
         <Link
           href={`/league/${league.id}`}
           className="flex flex-grow items-center justify-center text-gray-600 hover:text-green-700"

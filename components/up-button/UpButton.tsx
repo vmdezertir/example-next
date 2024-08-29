@@ -28,9 +28,9 @@ export const UpButton = ({ offsetTop = 300, className = '', smooth = false, size
 
   const center = useMemo(() => size / 2, [size]);
   const radius = useMemo(() => size / 2 - 3 / 2, [size]);
-  const dasharray = useMemo(() => Math.PI * radius * 2, [radius]);
+  const circumference = useMemo(() => Math.PI * radius * 2, [radius]);
 
-  const [progress, setProgress] = useState(dasharray);
+  const [progress, setProgress] = useState(circumference);
 
   const onScroll = useCallback(() => {
     const { clientHeight, scrollHeight, scrollTop } = document.documentElement;
@@ -38,16 +38,16 @@ export const UpButton = ({ offsetTop = 300, className = '', smooth = false, size
 
     const scroll = pageYOffset || scrollTop || scrollY;
     const percentage = scroll / (scrollHeight - clientHeight);
+    const isVisible = scroll > offsetTop;
 
-    setVisible(scroll > offsetTop);
-    setProgress(dasharray - dasharray * percentage);
-  }, [setVisible, setProgress]);
+    setVisible(isVisible);
+    setProgress(isVisible ? circumference - circumference * percentage : circumference);
+  }, [setVisible, setProgress, circumference, offsetTop]);
 
   useEffect(() => {
-    onScroll();
     document.addEventListener('scroll', onScroll);
     return () => document.removeEventListener('scroll', onScroll);
-  }, [top]);
+  }, []);
 
   return (
     <button
@@ -92,7 +92,7 @@ export const UpButton = ({ offsetTop = 300, className = '', smooth = false, size
           r={radius}
           cx={center}
           cy={center}
-          strokeDasharray={dasharray}
+          strokeDasharray={circumference}
           strokeDashoffset={progress}
         />
       </svg>

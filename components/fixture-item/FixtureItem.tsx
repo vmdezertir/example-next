@@ -13,9 +13,10 @@ import styles from './styles.module.scss';
 
 interface IFixtureItemProps {
   data: Omit<IFootballFixtureResponse, 'league'>;
+  fullDate?: boolean;
 }
 
-export const FixtureItem = ({ data }: IFixtureItemProps) => {
+export const FixtureItem = ({ data, fullDate = false }: IFixtureItemProps) => {
   const info = useMemo(
     () => ({
       status: data.fixture.status,
@@ -29,8 +30,8 @@ export const FixtureItem = ({ data }: IFixtureItemProps) => {
     <Link href={`/fixture/${info.fId}`} key={info.fId}>
       <li className={styles.item}>
         <div className={styles.item_row}>
-          <h3 className="inline-block w-32 text-sm font-medium leading-6">
-            <StatusInfo status={info.status} date={info.date} />
+          <h3 className="inline-block w-40 text-sm font-medium leading-6">
+            <StatusInfo status={info.status} date={info.date} fullDate={fullDate} />
           </h3>
           <div className="grid h-6 max-h-6 w-full grid-cols-9 gap-3">
             <div className="col-span-4">

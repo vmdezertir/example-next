@@ -11,7 +11,7 @@ import Providers from './providers';
 
 const baseFont = Inter({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {

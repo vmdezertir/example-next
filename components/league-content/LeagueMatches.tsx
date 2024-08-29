@@ -75,7 +75,7 @@ export const LeagueMatches = ({ season }: ILeagueMatchesProps) => {
               <span className="flex items-center border-b pb-2 text-gray-600">{round}</span>
               <ul>
                 {roundMatches.games.map(match => (
-                  <FixtureItem key={match.fixture.id} data={match} />
+                  <FixtureItem key={match.fixture.id} data={match} fullDate />
                 ))}
               </ul>
             </li>

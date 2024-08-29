@@ -12,10 +12,15 @@ export const FixtureStats = ({ stats }: IFixtureStatsProps) => {
   }
 
   const [homeStats, awayStats] = stats;
+
   const statistics = useMemo(
     () =>
       homeStats.statistics.reduce(
         (acc, hStat, index) => {
+          if (['expected_goals'].includes(hStat.type)) {
+            return acc;
+          }
+
           const aStat = awayStats.statistics[index];
           let aStatValue = aStat.value;
           if (!aStat || aStat.type !== hStat.type) {
@@ -34,9 +39,9 @@ export const FixtureStats = ({ stats }: IFixtureStatsProps) => {
 
           acc.push({
             type: hStat.type,
-            home: hStat.value,
+            home: hStat.value || 0,
             homePercent,
-            away: aStatValue,
+            away: aStatValue || 0,
             awayPercent,
           });
 
