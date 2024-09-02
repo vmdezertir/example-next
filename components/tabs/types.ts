@@ -1,10 +1,9 @@
-import React from 'react';
-import { IconType } from 'react-icons/lib';
+import { type IconName } from '@/types/name';
 
 export type TabProp = {
   tab: string;
   title: string;
-  IconComp?: IconType;
+  icon?: IconName;
   className?: string;
 };
 

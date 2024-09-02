@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
-import logotypeUrl from '../assets/logotype.svg?url';
+import { Icon } from '@/components/icon';
+
 import styles from './styles.module.scss';
 
 export const Header = () => {
@@ -12,7 +12,7 @@ export const Header = () => {
           <div className={styles.row_left}>
             <div className={styles.logo}>
               <Link href="/">
-                <Image priority width={250} src={logotypeUrl} alt="company logo" />
+                <Icon name="logotype" className="h-[70px] w-[250px]" />
               </Link>
             </div>
           </div>

@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 import { DateTime } from 'luxon';
-import { CgMediaLive } from 'react-icons/cg';
 
+import { Icon } from '@/components/icon';
 import { isFixtureLive } from '@/lib/helpers';
 import { IFixture, ILeague, ITeams, ITeamsGoals } from '@/types';
 
@@ -25,7 +25,7 @@ export const FixtureHeader = ({ goals, fixture, teams, league }: IFixtureHeaderP
       <div className="flex items-center border-b-2 border-slate-300 p-4">
         {isFixtureLive(fixture.status.short) && (
           <span className={styles.badge}>
-            <CgMediaLive className="mr-2" />
+            <Icon className="mr-2 h-[20px] w-[20px]" name={'CgMediaLive'} />
             <p className="whitespace-nowrap text-sm">{fixture.status.short}</p>
           </span>
         )}

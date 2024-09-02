@@ -2,7 +2,8 @@
 
 import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { FaAngleDoubleUp } from 'react-icons/fa';
+
+import { Icon } from '@/components/icon';
 
 import styles from './styles.module.scss';
 
@@ -98,7 +99,7 @@ export const UpButton = ({ offsetTop = 300, className = '', smooth = false, size
       </svg>
 
       <span className={styles.icon}>
-        <FaAngleDoubleUp />
+        <Icon className="h-[25px] w-[25px]" name={'FaAngleDoubleUp'} />
       </span>
     </button>
   );

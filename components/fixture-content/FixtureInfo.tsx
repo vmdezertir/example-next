@@ -1,8 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { MdSports } from 'react-icons/md';
-import { MdOutlineStadium } from 'react-icons/md';
 
+import { Icon } from '@/components/icon';
 import { fixtureH2hOptions } from '@/queryOptions/fixtures';
 import { IFixture, ITeams } from '@/types';
 
@@ -20,11 +19,11 @@ export const FixtureInfo = ({ fixture, teams }: IFixtureInfoProps) => {
   return (
     <>
       <p className="mt-3 flex items-center self-start text-sm text-gray-400">
-        <MdSports size={25} className="mr-1" />
+        <Icon className="mr-1 h-[25px] w-[25px]" name={'MdSports'} />
         Referee: <strong className="ml-1 text-gray-600">{fixture.referee || '-'}</strong>
       </p>
       <p className="mt-3 flex items-center self-start text-start text-sm text-gray-400">
-        <MdOutlineStadium size={25} className="mr-1" />
+        <Icon className="mr-1 h-[25px] w-[25px]" name={'MdOutlineStadium'} />
         Stadium:
         <strong className="ml-1 text-gray-600">
           {fixture.venue ? `${fixture.venue.name} (${fixture.venue.city})` : '-'}

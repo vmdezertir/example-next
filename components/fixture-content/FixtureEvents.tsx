@@ -1,14 +1,9 @@
 import { clsx } from 'clsx';
 
-import { isFixtureLive } from '@/lib/helpers';
+import { Icon, IconName } from '@/components/icon';
 import { EFixtureEventType, IFixtureEvent } from '@/types';
 
-import ballIconPath from '../assets/ball.svg?url';
-import redCardIconPath from '../assets/red-card.svg?url';
-import substIconPath from '../assets/substitution.svg?url';
-import varIconPath from '../assets/var.svg?url';
-import yellowCardIconPath from '../assets/yellow-card.svg?url';
-import { CircleNumber, ClientImage } from '../ui';
+import { CircleNumber } from '../ui';
 import styles from './event.styles.module.scss';
 
 interface IFixtureEventsProps {
@@ -18,27 +13,27 @@ interface IFixtureEventsProps {
 }
 
 export const EventIcon = ({ type, detail }: { type: EFixtureEventType; detail: string }) => {
-  let iconPath = '';
+  let iconName: IconName = 'ball';
   switch (type) {
     case EFixtureEventType.Goal: {
-      iconPath = ballIconPath;
+      iconName = 'ball';
       break;
     }
 
     case EFixtureEventType.Card: {
       const isRed = detail?.toLowerCase().includes('red');
-      iconPath = isRed ? redCardIconPath : yellowCardIconPath;
+      iconName = isRed ? 'red-card' : 'yellow-card';
       break;
     }
 
     case EFixtureEventType.subst:
     case EFixtureEventType.Subst: {
-      iconPath = substIconPath;
+      iconName = 'substitution';
       break;
     }
 
     case EFixtureEventType.Var: {
-      iconPath = varIconPath;
+      iconName = 'var';
       break;
     }
 
@@ -46,7 +41,7 @@ export const EventIcon = ({ type, detail }: { type: EFixtureEventType; detail: s
       break;
   }
 
-  return <ClientImage className="mx-2" src={iconPath} size={22} alt={`${type} icon`} fallbackSrc={''} />;
+  return <Icon className="mx-2 h-[22px] w-[22px]" name={iconName} />;
 };
 
 const EventTitle = ({ event }: { event: IFixtureEvent }) => {

@@ -1,6 +1,4 @@
-import { FcRating } from 'react-icons/fc';
-import { GiCaptainHatProfile } from 'react-icons/gi';
-
+import { Icon } from '@/components/icon';
 import { StatsChar } from '@/components/stats-char';
 import { timeAgo } from '@/lib/timeAgo';
 import { IFixtureTeamPlayersStat } from '@/types';
@@ -40,7 +38,7 @@ export const PlayerStats = ({ players, team }: IPlayerStatsProps) => {
                 <StatsChar chart="YC" explanation="Yellow cards" />
                 <StatsChar chart="RC" explanation="Red card" />
                 <StatsChar chart="" explanation="Player rating">
-                  <FcRating />
+                  <Icon name={'FcRating'} />
                 </StatsChar>
               </div>
             </div>
@@ -65,7 +63,13 @@ export const PlayerStats = ({ players, team }: IPlayerStatsProps) => {
                     <div className="flex w-3/5 flex-col">
                       <p className="flex flex-row items-center">
                         {player.name}
-                        {!!stat.games.captain && <GiCaptainHatProfile className="ml-2" style={{ color: '#d97604' }} />}
+                        {!!stat.games.captain && (
+                          <Icon
+                            className="ml-2 h-[20px] w-[20px]"
+                            style={{ color: '#d97604' }}
+                            name={'GiCaptainHatProfile'}
+                          />
+                        )}
                       </p>
                       <p className="text-sm text-gray-400">Position: {stat?.games?.position}</p>
                     </div>

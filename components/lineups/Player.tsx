@@ -1,12 +1,10 @@
 import clsx from 'clsx';
 
+import { Icon } from '@/components/icon';
 import { EFixtureEventType, IFixtureEvent, ITeamPositionInfo } from '@/types';
+import { IconName } from '@/types/name';
 
-import ballIconPath from '../assets/ball.svg?url';
-import redCardIconPath from '../assets/red-card.svg?url';
-import substIconPath from '../assets/substitution.svg?url';
-import yellowCardIconPath from '../assets/yellow-card.svg?url';
-import { CircleNumber, ClientImage, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui';
+import { CircleNumber, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui';
 
 interface IFixtureEventWithCount extends IFixtureEvent {
   count?: number;
@@ -19,25 +17,25 @@ interface IPlayerProps {
 
 export const Player = ({ info, isAway = false, events = [] }: IPlayerProps) => {
   const getIconProps = (type: EFixtureEventType, detail: string) => {
-    let iconPath = '';
+    let iconName: IconName = 'ball';
     let className = '';
     switch (type) {
       case EFixtureEventType.Goal: {
-        iconPath = ballIconPath;
+        iconName = 'ball';
         className = '-top-3 -right-6';
         break;
       }
 
       case EFixtureEventType.Card: {
         const isRed = detail?.toLowerCase().includes('red');
-        iconPath = isRed ? redCardIconPath : yellowCardIconPath;
+        iconName = isRed ? 'red-card' : 'yellow-card';
         className = '-top-3 -left-6';
         break;
       }
 
       case EFixtureEventType.subst:
       case EFixtureEventType.Subst: {
-        iconPath = substIconPath;
+        iconName = 'substitution';
         className = '-bottom-0 -right-6';
         break;
       }
@@ -47,7 +45,7 @@ export const Player = ({ info, isAway = false, events = [] }: IPlayerProps) => {
     }
 
     return {
-      icon: iconPath,
+      iconName,
       className,
     };
   };
@@ -67,13 +65,7 @@ export const Player = ({ info, isAway = false, events = [] }: IPlayerProps) => {
               const props = getIconProps(type, detail);
               return (
                 <div key={`${type}_${detail}_${player.id}`}>
-                  <ClientImage
-                    className={clsx('absolute', props.className)}
-                    src={props.icon}
-                    size={22}
-                    alt={`${type} icon`}
-                    fallbackSrc={''}
-                  />
+                  <Icon name={props.iconName} className={clsx('absolute h-[22px] w-[22px]', props.className)} />
                   {type === EFixtureEventType.Goal && count && count > 1 && (
                     <span className="absolute -right-12 -top-3 font-semibold text-white">{`x ${count}`}</span>
                   )}

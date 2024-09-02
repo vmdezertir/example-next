@@ -7,12 +7,11 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { DateTime } from 'luxon';
 import { Suspense } from 'react';
 import { useMemo } from 'react';
-import { CgMediaLive } from 'react-icons/cg';
 
 import { DayFixtures } from '@/components/day-fixtures';
 import { ErrorBoundary } from '@/components/error';
 import { RefreshButton } from '@/components/refresh-button';
-import { Tabs } from '@/components/tabs';
+import { type TabProp, Tabs } from '@/components/tabs';
 import { ClientImage } from '@/components/ui';
 import { dayFixtureOptions } from '@/queryOptions/fixtures';
 import { EFixtureTabStatus } from '@/types';
@@ -51,10 +50,10 @@ export const HomePage = ({ activeTab }: IHomePageProps) => {
   const today = DateTime.utc().toFormat('yyyy-MM-dd');
   const { data } = useSuspenseQuery(dayFixtureOptions(today));
 
-  const tabsData = useMemo(
+  const tabsData: TabProp[] = useMemo(
     () => [
       { tab: 'all', title: 'All matches' },
-      { tab: 'live', title: 'Live', IconComp: CgMediaLive, className: 'text-red-500' },
+      { tab: 'live', title: 'Live', icon: 'CgMediaLive', className: 'text-red-500' },
       { tab: 'finished', title: 'Finished' },
       { tab: 'scheduled', title: 'Scheduled' },
     ],

@@ -1,6 +1,5 @@
-import Image from 'next/image';
+import { Icon } from '@/components/icon';
 
-import logoUrl from '../assets/logo.svg?url';
 import { type IInfoLinkProps, InfoLink } from './InfoLink';
 import styles from './styles.module.scss';
 
@@ -13,7 +12,7 @@ export const Footer = () => {
         <div className="border-t border-gray-100 pt-6">
           <div className={styles.row}>
             <div className={styles.row_left}>
-              <Image width={50} src={logoUrl} alt="company logo" />
+              <Icon name="logo" className="h-[45px] w-[50px]" />
               <p className="mt-4 text-sm text-gray-500">&copy; {new Date().getFullYear()} SportHub</p>
             </div>
             <div className={styles.row_right}>
