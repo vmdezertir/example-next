@@ -1,13 +1,13 @@
+import { NoData } from '@/components/no-data';
+import { PlayerStats } from '@/components/player-stats';
 import { IFixtureTeamPlayersStat } from '@/types';
-
-import { PlayerStats } from '../player-stats';
 
 interface IFixturePlayersProps {
   players?: [IFixtureTeamPlayersStat, IFixtureTeamPlayersStat];
 }
 export const FixturePlayers = ({ players }: IFixturePlayersProps) => {
   if (!players?.length || (!players[0] && !players[1])) {
-    return null;
+    return <NoData icon="GiBabyfootPlayers" text="There are no statistical data for players" />;
   }
 
   return (

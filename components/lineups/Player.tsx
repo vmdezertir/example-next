@@ -67,7 +67,7 @@ export const Player = ({ info, isAway = false, events = [] }: IPlayerProps) => {
                 <div key={`${type}_${detail}_${player.id}`}>
                   <Icon name={props.iconName} className={clsx('absolute h-[22px] w-[22px]', props.className)} />
                   {type === EFixtureEventType.Goal && count && count > 1 && (
-                    <span className="absolute -right-12 -top-3 font-semibold text-white">{`x ${count}`}</span>
+                    <span className="absolute -right-14 -top-4 rounded-sm bg-lime-500 px-1 font-semibold text-white">{`x${count}`}</span>
                   )}
                 </div>
               );

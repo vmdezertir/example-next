@@ -33,7 +33,7 @@ export const FixtureHeader = ({ goals, fixture, teams, league }: IFixtureHeaderP
           href={`/league/${league.id}`}
           className="flex flex-grow items-center justify-center text-gray-600 hover:text-green-700"
         >
-          <ClientImage src={league.logo} fallbackSrc={''} size={60} alt={`${league.name} logotype`} />
+          <ClientImage src={league.logo} fallbackSrc="/icons/no-image.svg" size={60} alt={`${league.name} logotype`} />
           <h3 className="text-lg font-bold">{`${league.name} ${league.round ? `(${league.round})` : ''}`}</h3>
         </Link>
       </div>

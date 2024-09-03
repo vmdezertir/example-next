@@ -12,6 +12,6 @@ export interface BaseFootballApiResponse {
 }
 
 export interface CommonIdName {
-  id: number | null;
+  id: number;
   name: string | null;
 }

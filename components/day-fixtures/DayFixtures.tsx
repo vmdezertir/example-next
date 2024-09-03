@@ -1,8 +1,10 @@
 import Link from 'next/link';
 
-import { IFixturesResponse } from '@/types';
+import { useMemo } from 'react';
 
-import { FixtureItem } from '../fixture-item';
+import { FixtureItem } from '@/components/fixture-item';
+import { NoData } from '@/components/no-data';
+import { IFixturesResponse } from '@/types';
 
 interface IDayFixturesProps {
   sort: number[];
@@ -10,13 +12,26 @@ interface IDayFixturesProps {
 }
 
 export const DayFixtures = ({ sort, fixtures }: IDayFixturesProps) => {
+  const daySort = useMemo(
+    () =>
+      sort.reduce((acc, v) => {
+        if (fixtures[v]) {
+          acc.push(v);
+        }
+
+        return acc;
+      }, [] as number[]),
+    [sort, fixtures],
+  );
+
+  if (!daySort.length) {
+    return <NoData text="No football matches found" withIcon />;
+  }
+
   return (
     <ul className="mx-auto mt-3 w-full overflow-hidden bg-white shadow sm:rounded-md">
-      {sort.map(leagueId => {
+      {daySort.map(leagueId => {
         const data = fixtures[leagueId];
-
-        if (!data) return null;
-
         const { league, games } = data;
 
         return (

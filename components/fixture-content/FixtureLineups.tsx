@@ -1,5 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
+import { Lineups } from '@/components/lineups';
+import { NoData } from '@/components/no-data';
 import {
   EFixtureEventType,
   IFixtureEvent,
@@ -8,7 +10,6 @@ import {
   ITeamPositionInfo,
 } from '@/types';
 
-import { Lineups } from '../lineups';
 import { EventIcon } from './FixtureEvents';
 
 interface IFixtureLineupsProps {
@@ -75,7 +76,7 @@ const SubstitutesList = ({
 
 export const FixtureLineups = ({ lineups, events }: IFixtureLineupsProps) => {
   if (!lineups) {
-    return null;
+    return <NoData icon="GiBabyfootPlayers" text="Teams have not yet been announced" />;
   }
 
   const [homeTeam, awayTeam] = lineups;

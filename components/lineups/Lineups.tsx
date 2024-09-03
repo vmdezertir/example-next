@@ -30,7 +30,16 @@ export const Lineups = ({
     (playerId: number) =>
       Array.from(
         events
-          .filter(({ player }) => player.id === playerId)
+          .filter(
+            ({ player, type }) =>
+              player.id === playerId &&
+              [
+                EFixtureEventType.Goal,
+                EFixtureEventType.Card,
+                EFixtureEventType.Subst,
+                EFixtureEventType.subst,
+              ].includes(type),
+          )
           .reduce((acc, event) => {
             const { type } = event;
 
@@ -59,7 +68,7 @@ export const Lineups = ({
 
   return (
     <div
-      className={`relative ml-auto mr-auto flex h-[600px] w-[900px] flex-row bg-[url('/field.svg')] bg-contain bg-no-repeat`}
+      className={`relative ml-auto mr-auto flex h-[600px] w-[900px] flex-row bg-[url('/icons/field.svg')] bg-contain bg-no-repeat`}
     >
       {homeFormation && <span className="absolute left-4 top-2 text-lg font-semibold text-white">{homeFormation}</span>}
       {awayFormation && (

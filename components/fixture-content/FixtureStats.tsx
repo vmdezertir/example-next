@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { NoData } from '@/components/no-data';
 import { IFixtureTeamStats } from '@/types';
 
 interface IFixtureStatsProps {
@@ -8,7 +9,7 @@ interface IFixtureStatsProps {
 
 export const FixtureStats = ({ stats }: IFixtureStatsProps) => {
   if (!stats) {
-    return null;
+    return <NoData icon="IoIosStats" text="There are no statistical data" />;
   }
 
   const [homeStats, awayStats] = stats;
@@ -17,7 +18,7 @@ export const FixtureStats = ({ stats }: IFixtureStatsProps) => {
     () =>
       homeStats.statistics.reduce(
         (acc, hStat, index) => {
-          if (['expected_goals'].includes(hStat.type)) {
+          if (['expected_goals', 'goals_prevented'].includes(hStat.type)) {
             return acc;
           }
 

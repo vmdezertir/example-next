@@ -3,6 +3,7 @@ import { clsx } from 'clsx';
 import { Icon, IconName } from '@/components/icon';
 import { EFixtureEventType, IFixtureEvent } from '@/types';
 
+import { NoData } from '../no-data';
 import { CircleNumber } from '../ui';
 import styles from './event.styles.module.scss';
 
@@ -16,7 +17,8 @@ export const EventIcon = ({ type, detail }: { type: EFixtureEventType; detail: s
   let iconName: IconName = 'ball';
   switch (type) {
     case EFixtureEventType.Goal: {
-      iconName = 'ball';
+      const isPenalty = detail?.toLowerCase().includes('penalty');
+      iconName = isPenalty ? 'penalty' : 'ball';
       break;
     }
 
@@ -80,7 +82,7 @@ const EventTitle = ({ event }: { event: IFixtureEvent }) => {
 
 export const FixtureEvents = ({ events, homeTeamId, isLive = false }: IFixtureEventsProps) => {
   if (!events) {
-    return null;
+    return <NoData icon="GiSoccerKick" text="There are no match events yet" />;
   }
 
   const list = isLive ? events?.reverse() : events;

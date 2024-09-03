@@ -9,7 +9,6 @@ import { Suspense } from 'react';
 import { useMemo } from 'react';
 
 import { DayFixtures } from '@/components/day-fixtures';
-import { ErrorBoundary } from '@/components/error';
 import { RefreshButton } from '@/components/refresh-button';
 import { type TabProp, Tabs } from '@/components/tabs';
 import { ClientImage } from '@/components/ui';
@@ -60,7 +59,7 @@ export const HomePage = ({ activeTab }: IHomePageProps) => {
     [],
   );
   return (
-    <ErrorBoundary>
+    <>
       <Head>
         <title>Football Matches Today - Live Scores, Results & Fixtures</title>
         <meta
@@ -86,7 +85,7 @@ export const HomePage = ({ activeTab }: IHomePageProps) => {
                 <ClientImage
                   className="mr-[35px] min-w-[40px] object-contain"
                   src={`https://media.api-sports.io/football/leagues/${id}.png`}
-                  fallbackSrc={''}
+                  fallbackSrc="/icons/no-image.svg"
                   size={40}
                   alt={`${name} league logotype`}
                 />
@@ -103,6 +102,6 @@ export const HomePage = ({ activeTab }: IHomePageProps) => {
         </div>
       </div>
       <RefreshButton />
-    </ErrorBoundary>
+    </>
   );
 };

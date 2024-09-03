@@ -25,7 +25,7 @@ export const LeagueHeader = ({ league, country, season }: ILeagueHeaderProps) =>
   return (
     <div className={styles.header}>
       <div className="flex flex-row">
-        <ClientImage src={league.logo} fallbackSrc={''} size={60} alt={`${league.name} logotype`} />
+        <ClientImage src={league.logo} fallbackSrc="/icons/no-image.svg" size={60} alt={`${league.name} logotype`} />
         <div className="ml-2">
           <h3 className="text-lg font-bold">{league.name}</h3>
           <div className="flex flex-row">

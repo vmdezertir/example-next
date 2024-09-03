@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Icon } from '@/components/icon';
 
 import { type IInfoLinkProps, InfoLink } from './InfoLink';
@@ -18,10 +20,10 @@ export const Footer = () => {
             <div className={styles.row_right}>
               <span className="block sm:inline">{`All rights reserved. `}</span>
               {bts.map((btn, indx) => (
-                <>
-                  <InfoLink key={btn.text} {...btn} />
+                <React.Fragment key={btn.text}>
+                  <InfoLink {...btn} />
                   {bts.length - 1 !== indx ? <span>{` • `}</span> : null}
-                </>
+                </React.Fragment>
               ))}
             </div>
           </div>
