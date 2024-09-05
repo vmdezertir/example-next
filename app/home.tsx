@@ -47,7 +47,11 @@ interface IHomePageProps {
 
 export const HomePage = ({ activeTab }: IHomePageProps) => {
   const today = DateTime.utc().toFormat('yyyy-MM-dd');
-  const { data } = useSuspenseQuery(dayFixtureOptions(today));
+  const { data, isError } = useSuspenseQuery(dayFixtureOptions(today));
+
+  if (isError) {
+    return null;
+  }
 
   const tabsData: TabProp[] = useMemo(
     () => [

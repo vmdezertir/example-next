@@ -8,7 +8,7 @@ interface IFixtureStatsProps {
 }
 
 export const FixtureStats = ({ stats }: IFixtureStatsProps) => {
-  if (!stats) {
+  if (!stats?.length) {
     return <NoData icon="IoIosStats" text="There are no statistical data" />;
   }
 

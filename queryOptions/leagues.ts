@@ -28,7 +28,7 @@ const getLeagueStandings = async ({ queryKey }: QueryFunctionContext) => {
     `${API_BASE_URL}/api/proxy/standings?league=${id}&season=${season}`,
   );
 
-  return data[0];
+  return data[0] || { league: null };
 };
 
 export const leagueStandingOptions = (id: number, season: number) =>

@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 
 import { leagueStandingOptions } from '@/queryOptions/leagues';
 
+import { NoData } from '../no-data';
 import { StatsChar } from '../stats-char';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui';
 
@@ -23,7 +24,12 @@ export const Standings = ({ season }: IStandingsProps) => {
   const { slug } = useParams();
 
   const { data } = useSuspenseQuery(leagueStandingOptions(Number(slug), season));
-  const standings = useMemo(() => data.league.standings || [[]], [data]);
+
+  if (!data?.league?.standings) {
+    return <NoData withIcon />;
+  }
+
+  const standings = useMemo(() => data?.league?.standings || [[]], [data]);
 
   const colClass = 'w-full text-center';
 

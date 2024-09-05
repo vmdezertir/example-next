@@ -123,7 +123,7 @@ const getFixtureH2h = async ({ queryKey }: QueryFunctionContext) => {
   const [_, h2h] = queryKey;
 
   const { data }: AxiosResponse<IFootballFixtureResponse[]> = await axios.get(
-    `${API_BASE_URL}/api/proxy/fixtures/headtohead?h2h=${h2h}&last=10&status='FT-AET-PEN'`,
+    `${API_BASE_URL}/api/proxy/fixtures/headtohead?h2h=${h2h}&last=10&status=FT-AET-PEN`,
   );
 
   return data;

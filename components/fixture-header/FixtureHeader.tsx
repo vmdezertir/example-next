@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { DateTime } from 'luxon';
 
 import { Icon } from '@/components/icon';
-import { isFixtureLive } from '@/lib/helpers';
+import { isFixtureLive, isFixtureScheduled } from '@/lib/helpers';
 import { IFixture, ILeague, ITeams, ITeamsGoals } from '@/types';
 
 import { ClientImage } from '../ui';
@@ -47,9 +47,9 @@ export const FixtureHeader = ({ goals, fixture, teams, league }: IFixtureHeaderP
               {luxonDate.toFormat('DD')} at <strong className="text-gray-600">{luxonDate.toFormat('T')}</strong>
             </div>
             <div className="mt-3 flex items-center text-5xl">
-              <span className="font-semibold">{goals.home || 0}</span>
+              <span className="font-semibold">{isFixtureScheduled(fixture.status.short) ? '-' : goals.home || 0}</span>
               <span className="px-2.5 text-3xl font-bold text-gray-300">:</span>
-              <span className="font-semibold">{goals.away || 0}</span>
+              <span className="font-semibold">{isFixtureScheduled(fixture.status.short) ? '-' : goals.away || 0}</span>
             </div>
             <div className="mt-2 text-sm font-semibold text-amber-600">{fixture.status.long}</div>
           </div>

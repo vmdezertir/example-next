@@ -44,6 +44,10 @@ export async function GET(request: NextRequest) {
   } catch (error: any) {
     console.error('FootballApiService error', error);
 
+    if (error instanceof ApiError && error?.message?.includes('reached the request limit')) {
+      return Response.json({ message: 'PLAN_LIMIT' }, { status: 429 });
+    }
+
     if (error instanceof ApiError) {
       return Response.json({ message: error.message }, { status: error.statusCode });
     }

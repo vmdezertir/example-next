@@ -81,7 +81,7 @@ const EventTitle = ({ event }: { event: IFixtureEvent }) => {
 };
 
 export const FixtureEvents = ({ events, homeTeamId, isLive = false }: IFixtureEventsProps) => {
-  if (!events) {
+  if (!events?.length) {
     return <NoData icon="GiSoccerKick" text="There are no match events yet" />;
   }
 

@@ -11,9 +11,9 @@ interface INoDataProps {
 
 export const NoData = ({ text = 'No data available', icon, withIcon = false, className = '' }: INoDataProps) => {
   return (
-    <div className={clsx('flex items-center justify-center', className)}>
+    <div className={clsx('mt-2 flex items-center justify-center', className)}>
       {(icon || withIcon) && <Icon className="mr-2" name={icon || 'ball'} />}
-      <p>{text}</p>
+      <h3 className="text-lg font-medium text-gray-900">{text}</h3>
     </div>
   );
 };

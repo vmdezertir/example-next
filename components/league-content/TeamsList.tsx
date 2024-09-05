@@ -27,9 +27,12 @@ export const TeamsList = ({ season }: ITeamsListProps) => {
           </span>
 
           <h2 className="mt-2 font-bold">{team.team.name}</h2>
-          <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-            {team.venue.city} ({team.venue.name})
-          </p>
+          {!!team.venue.city ||
+            (!!team.venue.name && (
+              <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                {team.venue.city} ({team.venue.name})
+              </p>
+            ))}
         </div>
       ))}
     </div>

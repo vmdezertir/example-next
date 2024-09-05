@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   }
 
   const isLeague = searchParams.get('league');
-  const groupBy: TFixturesGroupBy = (searchParams.get('groupBy') as TFixturesGroupBy) || 'league';
+  const groupBy: TFixturesGroupBy = searchParams.get('groupBy') as TFixturesGroupBy;
 
   try {
     let restData;
@@ -26,16 +26,21 @@ export async function GET(request: NextRequest) {
     if (USE_FAKE_DATA) {
       restData = isLeague ? lFixtures : fixtures;
     } else {
+      searchParams.delete('groupBy');
       restData = await FootballApiService.get(redirectPathName, searchParams);
     }
-    const { groupedMap, sortedList } = groupGames(restData.response, groupBy);
+    const { groupedMap, sortedList } = groupGames(restData.response, groupBy || 'league');
 
     return Response.json({
       fixtures: Object.fromEntries(groupedMap),
       sortedLeagueIds: sortedList,
     });
   } catch (error: any) {
-    console.error('FootballApiService error', error);
+    console.error('FootballApiService error:', error);
+
+    if (error instanceof ApiError && error?.message?.includes('reached the request limit')) {
+      return Response.json({ message: 'PLAN_LIMIT' }, { status: 429 });
+    }
 
     if (error instanceof ApiError) {
       return Response.json({ message: error.message }, { status: error.statusCode });

@@ -28,7 +28,11 @@ const SubstitutesList = ({
     (playerId: number) =>
       Array.from(
         events
-          .filter(({ player, assist }) => player.id === playerId || assist.id === playerId)
+          .filter(
+            ({ player, assist, type }) =>
+              player.id === playerId ||
+              ([EFixtureEventType.Subst, EFixtureEventType.subst].includes(type) && assist.id === playerId),
+          )
           .reduce((acc, event) => {
             const { type } = event;
 
@@ -75,7 +79,7 @@ const SubstitutesList = ({
 };
 
 export const FixtureLineups = ({ lineups, events }: IFixtureLineupsProps) => {
-  if (!lineups) {
+  if (!lineups?.length) {
     return <NoData icon="GiBabyfootPlayers" text="Teams have not yet been announced" />;
   }
 
