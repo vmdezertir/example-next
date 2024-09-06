@@ -79,25 +79,19 @@ const SubstitutesList = ({
 };
 
 export const FixtureLineups = ({ lineups, events }: IFixtureLineupsProps) => {
-  if (!lineups?.length) {
-    return <NoData icon="GiBabyfootPlayers" text="Teams have not yet been announced" />;
-  }
-
-  const [homeTeam, awayTeam] = lineups;
-
-  if (!homeTeam.startXI?.length || !awayTeam.startXI?.length) {
-    return null;
-  }
-
   const homeLineups = useMemo(() => {
-    const initialArr = new Array(homeTeam.formation.split('-').length + 1);
+    if (!lineups?.length) {
+      return [];
+    }
 
-    return homeTeam.startXI.reduce(
+    const initialArr = new Array(lineups[0].formation.split('-').length + 1);
+
+    return lineups[0].startXI.reduce(
       (acc, { player }) => {
         const index = Number(player.grid?.split(':')[0]) - 1 || 0;
 
         if (!acc[index]) {
-          // @ts-ignore
+          // @ts-expect-error: correct
           acc[index] = [];
         }
 
@@ -107,18 +101,21 @@ export const FixtureLineups = ({ lineups, events }: IFixtureLineupsProps) => {
       },
       initialArr as [ITeamPositionInfo][],
     );
-  }, [homeTeam.startXI, homeTeam.formation]);
+  }, [lineups]);
 
   const awayLineups = useMemo(() => {
-    const initialArr = new Array(awayTeam.formation.split('-').length + 1);
+    if (!lineups?.length) {
+      return [];
+    }
+    const initialArr = new Array(lineups[1].formation.split('-').length + 1);
 
-    return awayTeam.startXI
+    return lineups[1].startXI
       .reduce(
         (acc, { player }) => {
           const index = Number(player.grid?.split(':')[0]) - 1 || 0;
 
           if (!acc[index]) {
-            // @ts-ignore
+            // @ts-expect-error: correct
             acc[index] = [];
           }
 
@@ -129,7 +126,17 @@ export const FixtureLineups = ({ lineups, events }: IFixtureLineupsProps) => {
         initialArr as [ITeamPositionInfo][],
       )
       .reverse();
-  }, [awayTeam.startXI, awayTeam.formation]);
+  }, [lineups]);
+
+  if (!lineups?.length) {
+    return <NoData icon="GiBabyfootPlayers" text="Teams have not yet been announced" />;
+  }
+
+  const [homeTeam, awayTeam] = lineups;
+
+  if (!homeTeam.startXI?.length || !awayTeam.startXI?.length) {
+    return null;
+  }
 
   return (
     <>

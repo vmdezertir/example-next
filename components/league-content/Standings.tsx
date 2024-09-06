@@ -48,7 +48,7 @@ export const Standings = ({ season }: IStandingsProps) => {
             }
 
             if (!acc[level]?.[description]) {
-              acc[level][description] = Object.keys(acc?.[level] || {}).length + 1;
+              acc[level][description] = Object.keys(acc[level]).length + 1;
             }
 
             return acc;

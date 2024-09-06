@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import { EFixtureEventType, IFixtureEvent, ITeamPositionInfo } from '@/types';
 
@@ -79,7 +79,7 @@ export const Lineups = ({
         {homeLineups.map((players, index) => (
           <div
             key={`home_row_${index}`}
-            // @ts-ignore
+            // @ts-expect-error: all formations are processed
             className={`flex ${DICTIONARY_WIDTHS[homeLineups.length]} flex-col items-center justify-around`}
           >
             {players.map(player => (
@@ -92,7 +92,7 @@ export const Lineups = ({
         {awayLineups.map((players, index) => (
           <div
             key={`away_row_${index}`}
-            // @ts-ignore
+            // @ts-expect-error: all formations are processed
             className={`flex ${DICTIONARY_WIDTHS[awayLineups.length]} flex-col items-center justify-around`}
           >
             {players.map(player => (

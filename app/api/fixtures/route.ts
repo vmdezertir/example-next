@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   try {
     let restData;
 
-    if (USE_FAKE_DATA) {
+    if (USE_FAKE_DATA && USE_FAKE_DATA === 'true') {
       restData = isLeague ? lFixtures : fixtures;
     } else {
       searchParams.delete('groupBy');

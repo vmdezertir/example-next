@@ -1,8 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Description
 
-## Getting Started
+Sports site with online matches and statistics of more than [1000 Leagues & Cups](https://www.api-football.com/coverage).
 
-First, run the development server:
+## Preparation
+
+- Get a FootBall API key from [rapidapi](https://rapidapi.com/api-sports/api/api-football/pricing) or from the football api [dashboard](https://dashboard.api-football.com/register)
+
+The accounts on RapidAPI and on Dashboard are dissociated. Each of these registration methods has its own URL and API-KEY.
+
+- RAPIDAPI : https://api-football-v1.p.rapidapi.com/v3/
+- API-SPORTS : https://v3.football.api-sports.io/
+
+!!This repo uses the Dashboard method. More details can be found [here](https://www.api-football.com/documentation-v3#section/Authentication).
+
+## Installation
+
+Copy `.env.local.example` and rename it to `.env.local` in the root folder. Also, fill in all variables.
+
+Please note that the free plan has a limit of 100 requests per day. You can [increase the limits](https://www.api-football.com/pricing) or switch to mock data (for this you need to change the flag in the configuration file to `USE_FAKE_DATA=true`)
+
+## Running the app
 
 ```bash
 npm run dev
@@ -15,19 +32,6 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 

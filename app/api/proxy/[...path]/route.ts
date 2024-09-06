@@ -22,9 +22,7 @@ export async function GET(request: NextRequest) {
   try {
     let restData = { response: [] };
 
-    console.log('redirectPathName', redirectPathName);
-
-    if (USE_FAKE_DATA) {
+    if (USE_FAKE_DATA && USE_FAKE_DATA === 'true') {
       if (redirectPathName.startsWith('fixtures/headtohead')) {
         restData = h2h;
       } else if (redirectPathName.startsWith('fixtures')) {
